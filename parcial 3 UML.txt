@@ -1,0 +1,95 @@
+@startuml
+
+class professional{
+    String name
+    String lastname
+    string DNI
+    string profession
+    String service_type
+    String phone
+}
+class rating{
+    Integer starCount
+    date dateOfAtention
+    void starAdd(starCount)
+    void commentProfessional()
+}
+class filterStars{
+    Integer star
+    listByStarsAsc(star)
+    listByStarsDesc(star)
+}
+class filterProfession{
+    String profession
+    listByProfessionAsc()
+    listByprofessionDes()
+}
+
+
+class login{
+    String user
+    Secret Pass
+    void login()
+}
+class signin{
+    String user
+    Secret Pass
+    void register()
+}
+
+
+professional "1" -- "1" rating
+professional "*"--"1" login
+professional "1" -- "*" signin
+professional "*" -- "0" filterStars
+professional "*" -- "0" filterProfession
+
+
+@enduml
+
+
+
+
+
+
+@startuml
+
+node computerUser{
+    component webBrowser
+}
+node herokuApp{
+    component vuejsComponents
+    component BootstrapCSS
+    component axios
+}
+node computerProfessional{
+    component webBrowser2
+}
+node digitalOcean{
+component RoR_API's{
+        component routes
+        component controllers
+        component DAO
+        component models
+    }
+    component MySql{
+        database professionals_DB
+        database login_DB
+    }
+}
+
+webBrowser "*"--"1" herokuApp
+webBrowser2 "*"--"1" herokuApp
+
+vuejsComponents -- BootstrapCSS
+vuejsComponents -- axios
+axios --0-- digitalOcean : http
+
+routes -- controllers
+controllers -- DAO
+DAO -- models
+models -- professionals_DB
+models -- login_DB
+
+
+@enduml
